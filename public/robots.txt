@@ -1,2 +1,16 @@
-# https://www.robotstxt.org/robotstxt.html
+# Allow all crawlers access to the main sections of the site
 User-agent: *
+Disallow: /admin/
+Disallow: /login/
+Disallow: /register/
+Disallow: /private/
+Disallow: /tmp/
+Disallow: /cgi-bin/
+Allow: /
+
+# Block specific bots (if needed)
+User-agent: BadBot
+Disallow: /
+
+# Sitemap location
+Sitemap: https://www.codz.tech/sitemap.xml

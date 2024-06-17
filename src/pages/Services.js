@@ -12,32 +12,19 @@ import web from "../img/services/web.png";
 const Services = () => {
   const serviceIcons = [
     {
-      id: "1",
-      title: "Instagram Engagement Campaign",
-      image: icon1,
+      id: "6",
+      title: "Web Design & Development",
+      image: web,
       description:
-        "Our Instagram engagement campaign will have your Instagram account come alive. ",
+        "Our web design and development services include everything from graphic design to UX.",
     },
-    {
-      id: "2",
-      title: "Email Marketing",
-      image: mail,
-      description:
-        "Stay top of mind with one of the most creative email marketing campaigns.",
-    },
+   
     {
       id: "3",
       title: "Search Engine Optimization",
       image: seo,
       description:
         "Rank in the top of search engines. Local SEO, link building, and more",
-    },
-    {
-      id: "4",
-      title: "Content Marketing Services",
-      image: content,
-      description:
-        "We can be your company voice with quality content. Our writing team will give your brand the voice it needs to stick out.",
     },
     {
       id: "5",
@@ -47,12 +34,30 @@ const Services = () => {
         "From brand awareness campaigns to lead funnels, we have got the tools to create the right ads for your business. ",
     },
     {
-      id: "6",
-      title: "Web Design & Development",
-      image: web,
+      id: "1",
+      title: "Instagram Engagement Campaign",
+      image: icon1,
       description:
-        "Our web design and development services include everything from graphic design to UX.",
+        "Our Instagram engagement campaign will have your Instagram account come alive. ",
     },
+    {
+      id: "4",
+      title: "Content Marketing Services",
+      image: content,
+      description:
+        "We can be your company voice with quality content. Our writing team will give your brand the voice it needs to stick out.",
+    },
+    {
+      id: "2",
+      title: "Email Marketing",
+      image: mail,
+      description:
+        "Stay top of mind with one of the most creative email marketing campaigns.",
+    },
+    
+    
+    
+    
   ];
 
   return (

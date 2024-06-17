@@ -9,7 +9,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg text-center">
         <div className="container">
           <Link to="/" className="navbar-brand">
-            A.
+            CodzTech
           </Link>
           <button
             className="navbar-toggler"

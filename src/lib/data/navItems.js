@@ -14,11 +14,11 @@ export const navItems = [
     name: "Works",
     link: "/works",
   },
-  {
-    id: 4,
-    name: "Team",
-    link: "/team",
-  },
+  // {
+  //   id: 4,
+  //   name: "Team",
+  //   link: "/team",
+  // },
   {
     id: 5,
     name: "Contact",

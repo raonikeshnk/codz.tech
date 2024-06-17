@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../img/like.png";
+import Logo from "../img/3dlogo.jpg";
 import "../App.scss";
 
 function Banner() {
@@ -18,13 +18,13 @@ function Banner() {
           <div className="banner-image-mobile">
             <div className="col-xl-7 col-lg-6 d-lg-block">
               <div className="banner-area">
-                <img className="banner-image" src={Logo} alt="images" />
+                <img className="banner-image img-fluid" src={Logo} alt="images" />
               </div>
             </div>
           </div>
           <div className="banner-image-desktop col-xl-7 col-lg-6 d-lg-block">
             <div className="banner-area">
-              <img className="banner-image" src={Logo} alt="images" />
+              <img className="banner-image img-fluid" src={Logo} alt="images" />
             </div>
           </div>
         </div>

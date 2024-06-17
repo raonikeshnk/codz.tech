@@ -3,10 +3,10 @@
 @import url("https://fonts.googleapis.com/css?family=Courgette&display=swap");
 
 /* colors */
-$primaryColor: #352793;
-$secondaryColor: #1d4ad1;
-$thirdColor: #130f40;
-$forthColor: #0c2461;
+$primaryColor: #0d0809;
+$secondaryColor: #030304;
+$thirdColor: #ff0000d8;
+$forthColor: #141415;
 
 /* fonts */
 $primaryFont: "Paytone One", sans-serif;
@@ -73,14 +73,14 @@ $titleFontSize: 100px;
 }
 
 .banner-text .text-customer {
-  color: rgb(132, 220, 255);
+  color: #7ced03;
 }
 
 /*----------------------About us area--------------------------*/
 
 .about-us-area {
   background: $thirdColor no-repeat;
-  background-image: url("./img/shape2.png");
+  // background-image: url("./img/shape2.png");
   background-position: center;
   background-size: 400px;
   padding: 5%;
@@ -276,6 +276,7 @@ footer {
 
   .service-boxes {
     padding: 10%;
+    border-top: 1px solid #272626;
     .service-icon {
       position: absolute;
       right: 90%;
@@ -288,11 +289,16 @@ footer {
     .service-info-title {
       height: 25px;
       margin-bottom: 5%;
+  
     }
 
     .service-description {
       font-size: 20px;
     }
+  }
+  .service-boxes:hover{
+    background-color: #272626;
+    border-radius: 30px;
   }
 }
 
@@ -474,12 +480,13 @@ footer {
           font-size: 20px;
         }
       }
-
+     
       .service-description {
         text-align: center !important;
         font-size: 15px;
       }
     }
+    
     .title-text {
       font-size: 1.6rem;
     }
