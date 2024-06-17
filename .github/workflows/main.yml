@@ -1,0 +1,29 @@
+name: Build and Deploy
+
+on:
+  push:
+    branches:
+      - main  # Trigger on push to main branch, adjust if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Install dependencies and build
+      run: |
+        npm install
+        npm run build
+
+    - name: Deploy to Shared Hosting
+      uses: easingthemes/ftp-deploy-action@v3.1.0
+      with:
+        ftp-server: ftp.codz.tech  # FTP server address
+        ftp-username: ${{ secrets.FTP_USERNAME }}  # FTP username (store in GitHub secrets)
+        ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTP password (store in GitHub secrets)
+        local-dir: ./build  # Path to the build directory
+        remote-dir: /codz.tech  # Remote directory on the server
+
