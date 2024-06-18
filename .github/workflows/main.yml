@@ -27,4 +27,4 @@ jobs:
         port: 21  # FTP port
         protocol: ftp  # Use FTP method
         local-dir: ./build/  # Path to the build directory
-        server-dir: /codz.tech/  # Remote directory on the server
+        server-dir: /  # Remote directory on the server
