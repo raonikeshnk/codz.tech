@@ -21,9 +21,10 @@ jobs:
     - name: Deploy to Shared Hosting
       uses: SamKirkland/FTP-Deploy-Action@4.3.0
       with:
-        ftp-server: ftp://ftp.raonikeshnk.in  # FTP server address
-        ftp-username: ${{ secrets.FTP_USERNAME }}  # FTP username (store in GitHub secrets)
-        ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTP password (store in GitHub secrets)
+        server: ftp.raonikeshnk.in  # FTP server address
+        username: ${{ secrets.FTP_USERNAME }}  # FTP username (store in GitHub secrets)
+        password: ${{ secrets.FTP_PASSWORD }}  # FTP password (store in GitHub secrets)
+        port: 21  # FTP port
+        protocol: ftp  # Use FTP method
         local-dir: ./build  # Path to the build directory
-        server-dir: /public_html  # Remote directory on the server
-        method: ftp  # Use FTP method
+        server-dir: /codz.tech  # Remote directory on the server
