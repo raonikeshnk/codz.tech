@@ -25,5 +25,5 @@ jobs:
         ftp-username: ${{ secrets.FTP_USERNAME }}  # FTP username (store in GitHub secrets)
         ftp-password: ${{ secrets.FTP_PASSWORD }}  # FTP password (store in GitHub secrets)
         local-dir: ./build  # Path to the build directory
-        remote-dir: /codz.tech  # Remote directory on the server
+        remote-dir: ftp.raonikeshnk.in/codz.tech  # Remote directory on the server
 
