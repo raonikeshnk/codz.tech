@@ -1,4 +1,4 @@
-export default [
+const blogs = [
     {
       "id": 1,
       "title": "The Future of AI in Technology",
@@ -80,4 +80,4 @@ export default [
       "createdAt": "2023-10-29T11:45:00.000Z"
     }
   ];
-  
+  export default blogs;
