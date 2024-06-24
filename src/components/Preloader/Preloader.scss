@@ -1,0 +1,94 @@
+// Preloader.scss
+
+$primaryColor: #0d0809;
+$secondaryColor: #030304;
+$thirdColor: #ff0000d8;
+$forthColor: #141415;
+
+.preloader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: $primaryColor;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.logo-container {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.logo-img {
+  width: 600px;
+  height: auto;
+  border-radius: 50%; /* Ensures the logo is circular */
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.5); /* Optional: Adds a shadow effect */
+}
+
+.circular-animation {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid $thirdColor;
+  border-radius: 50%; /* Ensures the circle is circular */
+  animation: circular-animation 2s linear infinite;
+}
+
+.preloader {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+
+.preloader span {
+  display: inline-block;
+  position: absolute;
+  left: 8px;
+  width: 16px;
+  background: $thirdColor;
+  animation: preloader-animation 1.2s cubic-bezier(0, 0.5, 0.5, 1) infinite;
+}
+
+.preloader span:nth-child(1) {
+  left: 8px;
+  animation-delay: -0.24s;
+}
+
+.preloader span:nth-child(2) {
+  left: 32px;
+  animation-delay: -0.12s;
+}
+
+.preloader span:nth-child(3) {
+  left: 56px;
+  animation-delay: 0;
+}
+
+@keyframes preloader-animation {
+  0% {
+    top: 8px;
+    height: 64px;
+  }
+  50%, 100% {
+    top: 24px;
+    height: 32px;
+  }
+}
+
+@keyframes circular-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -14,14 +14,14 @@ export const navItems = [
     name: "Works",
     link: "/works",
   },
-  // {
-  //   id: 4,
-  //   name: "Team",
-  //   link: "/team",
-  // },
   {
-    id: 5,
+    id: 4,
     name: "Contact",
     link: "/contact",
+  },
+  {
+    id: 5,
+    name: "Blog",
+    link: "/blog",
   },
 ];

@@ -185,6 +185,65 @@ $titleFontSize: 100px;
     }
   }
 }
+/*---------------------- blogs page --------------------------*/
+
+.sort-options .dropdown-toggle {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+}
+.sort-options .dropdown-menu {
+  // display: block;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  font-size: 14px;
+  text-align: left;
+  list-style: none;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+}
+
+
+
+
+.pagination-dark .page-item .page-link {
+  color: #fff;
+  background-color: #333;
+  border: 0.001rem solid #444;
+  // border-radius: 0.25rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+}
+
+.pagination-dark .page-item.active .page-link {
+  background-color: #f00;
+  color: #fff;
+}
+
+.pagination-dark .page-item.disabled .page-link {
+  color: #666;
+  background-color: #333;
+  cursor: not-allowed;
+}
+
+.pagination-dark .page-link:hover {
+  background-color: #444;
+  color: #fff;
+}
+.pagination-dark .page-link:focus {
+  box-shadow: none
+}
+
 
 /*---------------------- footer area --------------------------*/
 footer {

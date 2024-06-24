@@ -31,12 +31,19 @@ const Navbar = () => {
                   <li className="nav-item">
                     <Link to={item.link} className="nav-link">
                       {item.name}
+                      {item.img && <img src={item.img} alt={item.name} style={{ height: '40px' }} />}
                     </Link>
                   </li>
                 </ul>
               );
             })}
+            <div className="mt-lg-4 mx-lg-5">
+            <a href="https://linktr.ee/codz.tech" target="_blank" rel="noopener noreferrer">
+              <img src="https://1000logos.net/wp-content/uploads/2022/07/linktree-logo.png" alt="Linktree" style={{ height: '50px' }} />
+            </a>
           </div>
+          </div>
+          
         </div>
       </nav>
     </header>

@@ -1,8 +1,9 @@
 @import url("https://fonts.googleapis.com/css?family=Paytone+One&display=swap");
 @import url("https://fonts.googleapis.com/css?family=Nunito:400,700&display=swap");
 
-$primaryColor: #352793;
-$secondaryColor: #1d4ad1;
+
+$primaryColor: #030304;
+$secondaryColor: #0d0809;
 $primaryFont: "Paytone One", sans-serif;
 $secondaryFont: "Nunito", sans-serif;
 
@@ -11,15 +12,38 @@ $secondaryFont: "Nunito", sans-serif;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 100;  
+  z-index: 100;
 
   .navbar-brand {
     color: red;
-    transform: rotate(-5deg);
+    // transform: rotate(-5deg);
     font-weight: 900;
     font-size: 2.5rem;
     position: relative;
+    animation: pulse 3s ease-in-out infinite;
+    /* rotate continuously */
     // top: 20px;
+  }
+
+  @keyframes pulse {
+    0% {
+      transform: scale(1);
+      position: relative;
+      top: 0;
+    }
+
+    50% {
+      transform: scale(1.15);
+      position: relative;
+      rotate: -5deg;
+      top: 10px;
+    }
+
+    100% {
+      transform: scale(1);
+      position: relative;
+      top: 0;
+    }
   }
 
   span i {
@@ -33,7 +57,7 @@ $secondaryFont: "Nunito", sans-serif;
 
   .navbar-collapse.show,
   .collapsing {
-    background: $primaryColor;
+    background: $secondaryColor;
   }
 
   nav.navbar ul li a.nav-link {
@@ -140,13 +164,13 @@ $secondaryFont: "Nunito", sans-serif;
 
     .navbar-collapse.show,
     .collapsing {
-      background: $primaryColor;
+      background: $secondaryColor;
     }
 
     nav.navbar ul li a.nav-link {
       color: white;
       padding: 1rem;
-      border-bottom: 1px solid $secondaryColor;
+      border-bottom: 1px solid $primaryColor;
     }
   }
 }

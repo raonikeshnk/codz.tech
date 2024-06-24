@@ -10,6 +10,8 @@ import OurTeam from "pages/OurTeam";
 import PortfolioDetail from "pages/PortfolioDetail";
 import Services from "pages/Services";
 import Works from "pages/Works";
+import Blogs from "pages/Blogs";
+import BlogDetail from "components/BlogDetailsComponent";
 
 const App = () => {
   return (
@@ -23,6 +25,9 @@ const App = () => {
           <Route exact path="/works" component={Works} />
           <Route exact path={"/works/:id"} component={PortfolioDetail} />
           <Route exact path={"/team"} component={OurTeam} />
+          <Route exact path="/blog" component={Blogs} />
+          <Route path="/blog/:id" component={BlogDetail} />
+
         </Switch>
         <Footer />
       </BrowserRouter>
