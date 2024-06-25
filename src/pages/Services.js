@@ -66,7 +66,7 @@ const Services = () => {
         <div className="container text-white">
           <div className="row align-items-center">
             <div className="col-md-7 mx-auto">
-              <div className="services-title mb-5 mt-5">
+              <div className="services-title mb-5">
                 <h1 className="title-font title-font-size">Services</h1>
                 <p className="title-text mt-4 mb-4 title-font-2">
                   Our services are built for your business needs
