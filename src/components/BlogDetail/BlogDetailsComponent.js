@@ -81,14 +81,14 @@ const BlogDetail = () => {
             ))}
           </div>
         </div>
-        <a className="carousel-control-prev" role="button" onClick={showPrevious}>
+        <button className="carousel-control-prev" role="button" onClick={showPrevious}>
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
           <span className="sr-only">Previous</span>
-        </a>
-        <a className="carousel-control-next" role="button" onClick={showNext}>
+        </button>
+        <button className="carousel-control-next" role="button" onClick={showNext}>
           <span className="carousel-control-next-icon" aria-hidden="true"></span>
           <span className="sr-only">Next</span>
-        </a>
+        </button>
       </div>
     </div>
   );
