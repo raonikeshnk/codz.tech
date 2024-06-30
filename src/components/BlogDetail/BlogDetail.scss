@@ -1,0 +1,137 @@
+.blog-detail {
+    padding-top: 100px; /* Adjust this value based on your header height */
+    width: 80%;
+    margin: auto;
+
+    .breadcrumb {
+        background: none;
+        padding: 0;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .breadcrumb .breadcrumb-item a {
+        color: #fff;
+        text-decoration: none;
+    }
+
+    .breadcrumb .breadcrumb-item a:hover {
+        color: red;
+    }
+
+    .blog-title {
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        font-weight: bold;
+        color: red;
+        text-align: center;
+    }
+
+    .blog-category {
+        font-size: 1rem;
+        color: #6c757d;
+        margin-bottom: 20px;
+        text-align: center;
+    }
+
+    .blog-img {
+        width: 50%;
+        max-height: 200px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .blog-description {
+        font-size: 1.2rem;
+        line-height: 1.6;
+        margin-bottom: 20px;
+        text-align: justify;
+        color: #fff;
+    }
+
+    .navigation {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 40px;
+
+        .btn {
+            font-size: 1rem;
+            width: 50%;
+        }
+
+        .btn:hover {
+            background-color: red;
+            border: none;
+        }
+    }
+
+    .related-title {
+        font-size: 2rem;
+        margin-bottom: 20px;
+        text-align: center;
+        color: #fff;
+    }
+
+    .carousel-container {
+        position: relative; /* Ensure the container is positioned relative for absolute positioning of controls */
+        width: 100%;
+        max-width: 100%;
+        margin: auto;
+
+        .carousel-inner {
+            display: flex;
+            justify-content: center;
+
+            .carousel-item {
+                text-align: center;
+                width: 100%;
+
+                .row {
+                    display: flex;
+                    justify-content: center;
+                }
+                .related-blog-link {
+                    text-decoration: none;
+                    color: inherit;
+
+                    .related-blog-img {
+                        width: 100%;
+                        height: 150px;
+                        object-fit: cover;
+                        margin-bottom: 10px;
+                        border-radius: 10px;
+                    }
+
+                    .carousel-caption {
+                        background: rgba(0, 0, 0, 0.5) !important;
+                        border-radius: 5px;
+                    }
+
+                    .related-blog-title {
+                        font-size: 1.2rem;
+                        margin-bottom: 5px;
+                    }
+                }
+            }
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            position: absolute;
+            top: 50%; /* Center vertically */
+            transform: translateY(-50%); /* Adjust position */
+            width: 5%;
+        }
+
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-color: rgba(0, 0, 0, 0.5); /* Adjust color for better visibility */
+            border-radius: 50%;
+            padding: 10px; /* Add padding for better clickable area */
+        }
+    }
+}

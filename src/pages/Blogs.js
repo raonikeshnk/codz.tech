@@ -41,12 +41,10 @@ class Blogs extends Component {
     const { sortBy, sortOrder, filterBy } = this.state;
     let filteredBlogs = blogsData;
 
-    // Apply filter
     if (filterBy !== "all") {
       filteredBlogs = filteredBlogs.filter((blog) => blog.category === filterBy);
     }
 
-    // Apply sorting
     filteredBlogs.sort((a, b) => {
       if (sortBy === "title") {
         return sortOrder === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
@@ -61,16 +59,22 @@ class Blogs extends Component {
     this.setState({ blogs: filteredBlogs });
   };
 
+  truncateText = (text, letterLimit) => {
+    if (text.length > letterLimit) {
+      return text.slice(0, letterLimit) ;
+    }
+    return text;
+  };
+  
+
   render() {
     const { sortOrder, currentPage, blogsPerPage, blogs } = this.state;
     const categories = [...new Set(blogsData.map((blog) => blog.category))];
 
-    // Get current blogs
     const indexOfLastBlog = currentPage * blogsPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
     const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
 
-    // Page numbers
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(blogs.length / blogsPerPage); i++) {
       pageNumbers.push(i);
@@ -85,7 +89,7 @@ class Blogs extends Component {
                 <div className="portfolio-title mb-5 mt-4">
                   <h1 className="title-font">Our Blogs</h1>
                   <p className="mt-4 mb-4 title-font-2">
-                  Discover expertly crafted articles across technology, finance, lifestyle, health, and business.
+                    Discover expertly crafted articles across technology, finance, lifestyle, health, and business.
                   </p>
                 </div>
               </div>
@@ -142,8 +146,8 @@ class Blogs extends Component {
                     <Link to={`/blog/${blog.id}`} className="text-decoration-none text-white">
                       <img src={blog.src} alt={blog.title} className="card-img-top" />
                       <div className="card-body">
-                        <h2 className="card-title">{blog.title}</h2>
-                        <p className="card-text">{blog.description}</p>
+                        <h2 className="card-title">{this.truncateText(blog.title, 30)}</h2>
+                        <p className="card-text">{this.truncateText(blog.description, 60)}</p> {/* Adjust the word limit here */}
                         <span className="badge badge-secondary">Category: {blog.category}</span>
                         <p className="card-text"><small className="text-muted">Published on: {new Date(blog.createdAt).toLocaleDateString()}</small></p>
                       </div>
@@ -152,8 +156,8 @@ class Blogs extends Component {
                 </div>
               ))}
               <div className="col-12 mt-4">
-                <nav aria-label="Blog Pagination" >
-                  <ul className={`pagination pagination-dark justify-content-center text-white`}>
+                <nav aria-label="Blog Pagination">
+                  <ul className="pagination pagination-dark justify-content-center text-white">
                     <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
                       <button className="page-link" onClick={() => this.handlePageChange(currentPage - 1)}>&laquo;</button>
                     </li>

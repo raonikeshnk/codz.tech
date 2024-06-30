@@ -11,14 +11,14 @@ import PortfolioDetail from "pages/PortfolioDetail";
 import Services from "pages/Services";
 import Works from "pages/Works";
 import Blogs from "pages/Blogs";
-import BlogDetail from "components/BlogDetailsComponent";
+import BlogDetail from "components/BlogDetail/BlogDetailsComponent";
 
 const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
         <Navbar />
-        <Switch>
+        <Switch className="mt-5">
           <Route exact path="/" component={HomePage} />
           <Route exact path="/contact" component={Contact} />
           <Route exact path="/services" component={Services} />
