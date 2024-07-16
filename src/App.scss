@@ -850,3 +850,33 @@ footer {
     }
   }
 }
+
+
+/* AddBlog component specific styles */
+
+.container.add-blog {
+  margin-top: 100px; /* Adjust the top margin to create space below the header */
+}
+
+.form-group {
+  margin-bottom: 20px; /* Adjust spacing between form groups */
+}
+
+.form-control {
+  background-color: #272626; /* Custom background color */
+  color: white; /* Text color */
+  border-color: #333; /* Border color */
+}
+
+.btn-primary {
+  background-color: #7ced03; /* Primary button background color */
+  border-color: #7ced03; /* Primary button border color */
+  color: #fff; /* Button text color */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .container.add-blog {
+    margin-top: 80px; /* Adjust margin for smaller screens */
+  }
+}

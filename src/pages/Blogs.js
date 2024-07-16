@@ -1,12 +1,16 @@
+// src/pages/Blogs.js
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import blogsData from "../data/blogs";
+import { collection, getDocs, query } from "firebase/firestore";
+import { firestore } from "../firebaseConfig";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+
 
 class Blogs extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      blogs: blogsData,
+      blogs: [],
       sortBy: "title",
       sortOrder: "asc",
       filterBy: "all",
@@ -14,6 +18,30 @@ class Blogs extends Component {
       blogsPerPage: 6,
     };
   }
+
+  componentDidMount() {
+    const auth = getAuth();
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        this.fetchBlogs();
+      } else {
+        this.props.history.push('/login');
+      }
+    });
+  }
+
+  fetchBlogs = async () => {
+    const blogsRef = collection(firestore, "blogs");
+    let q = query(blogsRef);
+
+    const querySnapshot = await getDocs(q);
+    const blogs = querySnapshot.docs.map(doc => ({
+      id: doc.id,
+      ...doc.data(),
+    }));
+
+    this.setState({ blogs });
+  };
 
   handleSort = (sortBy) => {
     let sortOrder = this.state.sortOrder;
@@ -38,8 +66,8 @@ class Blogs extends Component {
   };
 
   sortBlogs = () => {
-    const { sortBy, sortOrder, filterBy } = this.state;
-    let filteredBlogs = blogsData;
+    const { sortBy, sortOrder, filterBy, blogs } = this.state;
+    let filteredBlogs = blogs;
 
     if (filterBy !== "all") {
       filteredBlogs = filteredBlogs.filter((blog) => blog.category === filterBy);
@@ -61,15 +89,14 @@ class Blogs extends Component {
 
   truncateText = (text, letterLimit) => {
     if (text.length > letterLimit) {
-      return text.slice(0, letterLimit) ;
+      return text.slice(0, letterLimit);
     }
     return text;
   };
-  
 
   render() {
     const { sortOrder, currentPage, blogsPerPage, blogs } = this.state;
-    const categories = [...new Set(blogsData.map((blog) => blog.category))];
+    const categories = [...new Set(blogs.map((blog) => blog.category))];
 
     const indexOfLastBlog = currentPage * blogsPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
@@ -94,48 +121,53 @@ class Blogs extends Component {
                 </div>
               </div>
               <div className="col-12">
-                <div className="d-flex justify-content-end mb-4">
-                  <div className="dropdown mr-2">
-                    <button
-                      className="btn btn-outline-light dropdown-toggle px-5"
-                      type="button"
-                      id="sortDropdown"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Sort by{" "}
-                      <i className={`bi ${sortOrder === "asc" ? "bi-sort-up" : "bi-sort-down"}`}></i>
-                    </button>
-                    <div className="dropdown-menu" aria-labelledby="sortDropdown">
-                      <button className="dropdown-item" onClick={() => this.handleSort("date")}>
-                        Date
+                <div className="d-flex justify-content-between mb-4">
+                  <Link to="/add-blog" className="btn btn-outline-light px-5">
+                    Add New Blog
+                  </Link>
+                  <div className="d-flex">
+                    <div className="dropdown mr-2">
+                      <button
+                        className="btn btn-outline-light dropdown-toggle px-5"
+                        type="button"
+                        id="sortDropdown"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Sort by{" "}
+                        <i className={`bi ${sortOrder === "asc" ? "bi-sort-up" : "bi-sort-down"}`}></i>
                       </button>
-                      <button className="dropdown-item" onClick={() => this.handleSort("popularity")}>
-                        Popularity
-                      </button>
-                    </div>
-                  </div>
-                  <div className="dropdown">
-                    <button
-                      className="btn btn-outline-light dropdown-toggle px-5"
-                      type="button"
-                      id="filterDropdown"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Filter by
-                    </button>
-                    <div className="dropdown-menu" aria-labelledby="filterDropdown">
-                      <button className="dropdown-item" onClick={() => this.handleFilter("all")}>
-                        All
-                      </button>
-                      {categories.map((category) => (
-                        <button className="dropdown-item" key={category} onClick={() => this.handleFilter(category)}>
-                          {category}
+                      <div className="dropdown-menu" aria-labelledby="sortDropdown">
+                        <button className="dropdown-item" onClick={() => this.handleSort("date")}>
+                          Date
                         </button>
-                      ))}
+                        <button className="dropdown-item" onClick={() => this.handleSort("popularity")}>
+                          Popularity
+                        </button>
+                      </div>
+                    </div>
+                    <div className="dropdown">
+                      <button
+                        className="btn btn-outline-light dropdown-toggle px-5"
+                        type="button"
+                        id="filterDropdown"
+                        data-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        Filter by
+                      </button>
+                      <div className="dropdown-menu" aria-labelledby="filterDropdown">
+                        <button className="dropdown-item" onClick={() => this.handleFilter("all")}>
+                          All
+                        </button>
+                        {categories.map((category) => (
+                          <button className="dropdown-item" key={category} onClick={() => this.handleFilter(category)}>
+                            {category}
+                          </button>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -147,9 +179,11 @@ class Blogs extends Component {
                       <img src={blog.src} alt={blog.title} className="card-img-top" />
                       <div className="card-body">
                         <h2 className="card-title">{this.truncateText(blog.title, 30)}</h2>
-                        <p className="card-text">{this.truncateText(blog.description, 60)}</p> {/* Adjust the word limit here */}
+                        <p className="card-text">{this.truncateText(blog.description, 60)}</p>
                         <span className="badge badge-secondary">Category: {blog.category}</span>
-                        <p className="card-text"><small className="text-muted">Published on: {new Date(blog.createdAt).toLocaleDateString()}</small></p>
+                        <p className="card-text">
+                          <small className="text-muted">Published on: {new Date(blog.createdAt).toLocaleDateString()}</small>
+                        </p>
                       </div>
                     </Link>
                   </div>
@@ -159,7 +193,9 @@ class Blogs extends Component {
                 <nav aria-label="Blog Pagination">
                   <ul className="pagination pagination-dark justify-content-center text-white">
                     <li className={`page-item ${currentPage === 1 ? "disabled" : ""}`}>
-                      <button className="page-link" onClick={() => this.handlePageChange(currentPage - 1)}>&laquo;</button>
+                      <button className="page-link" onClick={() => this.handlePageChange(currentPage - 1)}>
+                        &laquo;
+                      </button>
                     </li>
                     {pageNumbers.map((number) => (
                       <li key={number} className={`page-item ${currentPage === number ? "active" : ""}`}>
@@ -169,7 +205,9 @@ class Blogs extends Component {
                       </li>
                     ))}
                     <li className={`page-item ${currentPage === pageNumbers.length ? "disabled" : ""}`}>
-                      <button className="page-link" onClick={() => this.handlePageChange(currentPage + 1)}>&raquo;</button>
+                      <button className="page-link" onClick={() => this.handlePageChange(currentPage + 1)}>
+                        &raquo;
+                      </button>
                     </li>
                   </ul>
                 </nav>

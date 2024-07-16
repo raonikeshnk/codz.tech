@@ -1,94 +1,58 @@
-import React, { useState } from "react";
+// src/components/BlogDetail.js
+import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import blogsData from "../../data/blogs";
+import { doc, getDoc } from "firebase/firestore";
+import { firestore } from "../../firebaseConfig";
 import "./BlogDetail.scss";
 
 const BlogDetail = () => {
   const { id } = useParams();
-  const blog = blogsData.find(blog => blog.id === parseInt(id));
-  const blogIndex = blogsData.findIndex(blog => blog.id === parseInt(id));
-  const previousBlog = blogsData[blogIndex - 1];
-  const nextBlog = blogsData[blogIndex + 1];
+  const [blog, setBlog] = useState(null);
 
-  // Fetch all blogs for the related blogs carousel
-  const relatedBlogs = blogsData.filter(b => b.id !== blog.id);
-  const [currentIndex, setCurrentIndex] = useState(0);
+  useEffect(() => {
+    const fetchBlog = async () => {
+      try {
+        const docRef = doc(firestore, "blogs", id);
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          setBlog(docSnap.data());
+        } else {
+          console.log("No such document!");
+        }
+      } catch (error) {
+        console.error('Error fetching blog: ', error);
+      }
+    };
 
-  const showPrevious = () => {
-    setCurrentIndex((prevIndex) => (prevIndex > 0 ? prevIndex - 1 : relatedBlogs.length - 1));
-  };
-
-  const showNext = () => {
-    setCurrentIndex((prevIndex) => (prevIndex < relatedBlogs.length - 1 ? prevIndex + 1 : 0));
-  };
-
-  const getDisplayedBlogs = () => {
-    const startIndex = currentIndex;
-    const endIndex = startIndex + 3;
-    if (endIndex <= relatedBlogs.length) {
-      return relatedBlogs.slice(startIndex, endIndex);
-    } else {
-      return relatedBlogs.slice(startIndex).concat(relatedBlogs.slice(0, endIndex - relatedBlogs.length));
-    }
-  };
+    fetchBlog();
+  }, [id]);
 
   if (!blog) {
-    return <div>Blog not found</div>;
+    return <div className="container">Blog not found</div>;
   }
-
-  const displayedBlogs = getDisplayedBlogs();
 
   return (
     <div className="blog-detail container">
-      <nav aria-label="breadcrumb">
-        <ol className="breadcrumb">
-          <li className="breadcrumb-item"><Link to="/">Home</Link></li>
-          <li className="breadcrumb-item"><Link to="/blog">Blogs</Link></li>
-          <li className="breadcrumb-item active" aria-current="page">{blog.title}</li>
-        </ol>
-      </nav>
-
-      <h1 className="blog-title">{blog.title}</h1>
-      <span className="blog-category">Category: <b>{blog.category}</b> Published on: <b>{new Date(blog.createdAt).toLocaleDateString()}</b></span>
-      <img src={blog.src} className="blog-img mt-4" alt={blog.title} />
-      <p className="blog-description">{blog.longDescription}</p>
-      <div className="navigation">
-        {previousBlog && (
-          <Link to={`/blog/${previousBlog.id}`} className="btn btn-secondary mr-2">
-            Previous
-          </Link>
-        )}
-        {nextBlog && (
-          <Link to={`/blog/${nextBlog.id}`} className="btn btn-secondary">
-            Next
-          </Link>
-        )}
+      <div className="row">
+        <div className="col-12 text-center">
+          <h1 className="title-font">{blog.title}</h1>
+          <p className="mt-3 mb-3">{new Date(blog.createdAt).toLocaleDateString()}</p>
+        </div>
       </div>
-
-      <h3 className="related-title mt-5">Related Blogs</h3>
-      <div className="carousel-container mb-5">
-        <div className="carousel-inner">
-          <div className="row">
-            {displayedBlogs.map((relatedBlog, index) => (
-              <div className="col-md-4" key={index}>
-                <Link to={`/blog/${relatedBlog.id}`} className="related-blog-link">
-                  <img src={relatedBlog.src} className="related-blog-img d-block w-100 rounded" alt={relatedBlog.title} />
-                  <div className="carousel-caption d-none d-md-block">
-                    <h5 className="related-blog-title">{relatedBlog.title}</h5>
-                  </div>
-                </Link>
-              </div>
-            ))}
+      <div className="row">
+        <div className="col-12 col-md-8 offset-md-2 text-center">
+          <img src={blog.src} alt={blog.title} className="img-fluid" />
+        </div>
+      </div>
+      <div className="row mt-5">
+        <div className="col-12 col-md-8 offset-md-2">
+          <p>{blog.description}</p>
+          <div className="blog-long-description" dangerouslySetInnerHTML={{ __html: blog.longDescription }}></div>
+          <div className="d-flex justify-content-between mt-4">
+            <Link to="/blogs" className="btn btn-outline-primary">Back to Blogs</Link>
+            <span className="badge badge-secondary">Category: {blog.category}</span>
           </div>
         </div>
-        <button className="carousel-control-prev" onClick={showPrevious}>
-          <span className="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span className="sr-only">Previous</span>
-        </button>
-        <button className="carousel-control-next" onClick={showNext}>
-          <span className="carousel-control-next-icon" aria-hidden="true"></span>
-          <span className="sr-only">Next</span>
-        </button>
       </div>
     </div>
   );
