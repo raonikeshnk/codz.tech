@@ -12,8 +12,7 @@ const AddBlog = () => {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [image, setImage] = useState(null);
-  const [uploadProgress, setUploadProgress] = useState(0);
-
+  const [uploadProgress, setUploadProgress] = useState(0); // Track upload progress
 
   const handleImageChange = (e) => {
     setImage(e.target.files[0]);
@@ -39,12 +38,10 @@ const AddBlog = () => {
         console.log('Upload is ' + progress + '% done');
       },
       (error) => {
-        // Error function ...
         console.error('Error uploading file: ', error);
         alert('Error uploading image. Please try again.');
       },
       async () => {
-        // Complete function ...
         getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
           try {
             await addDoc(collection(firestore, 'blogs'), {
@@ -55,11 +52,11 @@ const AddBlog = () => {
               createdAt: serverTimestamp(),
             });
 
-            // Clear form fields after successful submission
             setTitle('');
             setDescription('');
             setCategory('');
             setImage(null);
+            setUploadProgress(0); // Reset progress
             alert('Blog added successfully');
             history.push('/blogs');
           } catch (error) {
@@ -83,7 +80,7 @@ const AddBlog = () => {
 
   return (
     <div className="container text-white" style={{ paddingTop: '100px' }}>
-      <h2 style={{color:'red'}}>Add New Blog</h2>
+      <h2 style={{ color: 'red' }}>Add New Blog</h2>
       <form onSubmit={handleSubmit} className='m-5 px-5'>
         <div className="form-group">
           <label htmlFor="title">Title:</label>
@@ -126,7 +123,26 @@ const AddBlog = () => {
             onChange={handleImageChange}
           />
         </div>
-        <button type="submit" className="btn form-control " style={{backgroundColor:'#7ced03'}}>Add Blog</button>
+        {uploadProgress > 0 && (
+          <div className="form-group">
+            <label>Upload Progress:</label>
+            <div className="progress">
+              <div
+                className="progress-bar"
+                role="progressbar"
+                style={{ width: `${uploadProgress}%` }}
+                aria-valuenow={uploadProgress}
+                aria-valuemin="0"
+                aria-valuemax="100"
+              >
+                {Math.round(uploadProgress)}%
+              </div>
+            </div>
+          </div>
+        )}
+        <button type="submit" className="btn form-control" style={{ backgroundColor: '#7ced03' }}>
+          Add Blog
+        </button>
       </form>
     </div>
   );
