@@ -32,7 +32,7 @@ const BlogDetail = () => {
   }
 
   return (
-    <div className="blog-detail container">
+    <div className="blog-detail container text-white">
       <div className="row">
         <div className="col-12 text-center">
           <h1 className="title-font">{blog.title}</h1>
@@ -48,9 +48,9 @@ const BlogDetail = () => {
         <div className="col-12 col-md-8 offset-md-2">
           <p>{blog.description}</p>
           <div className="blog-long-description" dangerouslySetInnerHTML={{ __html: blog.longDescription }}></div>
-          <div className="d-flex justify-content-between mt-4">
-            <Link to="/blogs" className="btn btn-outline-primary">Back to Blogs</Link>
-            <span className="badge badge-secondary">Category: {blog.category}</span>
+          <span className="badge badge-secondary">Category: {blog.category}</span>
+          <div className="d-flex justify-content-between my-4">
+            <Link to="/blogs" className="btn btn-warning form-control">Back to Blogs</Link>
           </div>
         </div>
       </div>

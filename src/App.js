@@ -15,6 +15,9 @@ import Blogs from 'pages/Blogs';
 import BlogDetail from 'components/BlogDetail/BlogDetailsComponent';
 import Login from 'pages/Login';  // Add the Login page import
 import AddBlog from 'components/BlogDetail/AddBlogForm';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap/dist/js/bootstrap.bundle.min';
+
 
 const App = () => {
   return (
@@ -29,7 +32,7 @@ const App = () => {
             <Route exact path="/works" component={Works} />
             <Route exact path={"/works/:id"} component={PortfolioDetail} />
             <Route exact path={"/team"} component={OurTeam} />
-            <Route exact path="/blog" component={Blogs} />
+            <Route exact path="/blogs" component={Blogs} />
             <Route path="/blog/:id" component={BlogDetail} />
             <Route exact path="/login" component={Login} />  
             <Route exact path="/add-blog" component={AddBlog} />

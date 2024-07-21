@@ -5,12 +5,12 @@ const PortfolioDetailComponent = (props) => {
 
   return (
     <>
-      <div className="detail section-title mt-5 mb-5">
+      <div className="detail section-title mb-5">
         <div className="container text-white">
           <div className="row align-items-center">
-            <div className="col-md-7 mx-auto">
-              <div className="services-title mb-5 mt-5">
-                <h2 className="title-font title-font-size">{title}</h2>
+            <div className="col-md-7 mx-auto mt-5">
+              <div className="services-title mt-5">
+                <h2 className="title-font title-font-size mt-5">{title}</h2>
               </div>
             </div>
           </div>

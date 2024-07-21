@@ -3,7 +3,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs, query } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
 
 
 class Blogs extends Component {
@@ -20,15 +19,9 @@ class Blogs extends Component {
   }
 
   componentDidMount() {
-    const auth = getAuth();
-    onAuthStateChanged(auth, (user) => {
-      if (user) {
-        this.fetchBlogs();
-      } else {
-        this.props.history.push('/login');
-      }
-    });
+    this.fetchBlogs();
   }
+
 
   fetchBlogs = async () => {
     const blogsRef = collection(firestore, "blogs");
@@ -120,18 +113,19 @@ class Blogs extends Component {
                   </p>
                 </div>
               </div>
+             
               <div className="col-12">
-                <div className="d-flex justify-content-between mb-4">
-                  <Link to="/add-blog" className="btn btn-outline-light px-5">
+                <div className="d-flex flex-column flex-md-row justify-content-between mb-4">
+                  <Link to="/add-blog" className="btn btn-outline-light mb-3 mb-md-0 px-5">
                     Add New Blog
                   </Link>
-                  <div className="d-flex">
-                    <div className="dropdown mr-2">
+                  <div className="d-flex flex-column flex-md-row">
+                    <div className="dropdown mr-2 mb-3 mb-md-0">
                       <button
                         className="btn btn-outline-light dropdown-toggle px-5"
                         type="button"
                         id="sortDropdown"
-                        data-toggle="dropdown"
+                        data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
@@ -152,7 +146,7 @@ class Blogs extends Component {
                         className="btn btn-outline-light dropdown-toggle px-5"
                         type="button"
                         id="filterDropdown"
-                        data-toggle="dropdown"
+                        data-bs-toggle="dropdown"
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
@@ -172,6 +166,9 @@ class Blogs extends Component {
                   </div>
                 </div>
               </div>
+           
+
+
               {currentBlogs.map((blog) => (
                 <div className="col-lg-4 col-md-6 col-sm-6 mb-4" key={blog.id}>
                   <div className="card bg-dark border-light">

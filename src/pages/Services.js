@@ -76,7 +76,7 @@ const Services = () => {
           </div>
           <div className="row align-items-center">
             {serviceIcons.map((service) => (
-              <div className="col-12 col-lg-6" key={service.id}>
+              <div className="col-12 col-lg-6 mb-3" key={service.id}>
                 <div className="service-boxes">
                   <div className="service-icon">
                     <img

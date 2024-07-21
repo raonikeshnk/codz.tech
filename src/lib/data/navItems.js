@@ -22,6 +22,6 @@ export const navItems = [
   {
     id: 5,
     name: "Blog",
-    link: "/blog",
+    link: "/blogs",
   },
 ];

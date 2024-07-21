@@ -25,11 +25,11 @@ const Login = () => {
   };
 
   return (
-    <div className="container my-5" style={{ height: '70vh' }}>
-      <div className="row justify-content-center mt-5">
+    <div className="container" style={{ height: '90vh' }}>
+      <div className="row justify-content-center pt-5">
         <div className="col-md-6 mt-5">
           <div className="card mt-5">
-            <div className="card-body text-left">
+            <div className="card-body text-left my-3">
               <h2 className="card-title text-center">Login</h2>
               <form onSubmit={handleSubmit}>
                 <div className="form-group">
