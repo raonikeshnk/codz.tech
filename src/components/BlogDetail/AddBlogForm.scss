@@ -1,0 +1,18 @@
+/* styles.css or AddBlog.scss */
+.preview-section {
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+  }
+  
+  .preview-description {
+    min-height: 150px;
+  }
+  
+  .preview-section img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+  }
+  

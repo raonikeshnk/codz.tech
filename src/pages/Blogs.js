@@ -1,15 +1,15 @@
-// src/pages/Blogs.js
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { collection, getDocs, query } from "firebase/firestore";
 import { firestore } from "../firebaseConfig";
-
 
 class Blogs extends Component {
   constructor(props) {
     super(props);
     this.state = {
       blogs: [],
+      originalBlogs: [],
+      categories: [],
       sortBy: "title",
       sortOrder: "asc",
       filterBy: "all",
@@ -22,18 +22,22 @@ class Blogs extends Component {
     this.fetchBlogs();
   }
 
-
   fetchBlogs = async () => {
     const blogsRef = collection(firestore, "blogs");
-    let q = query(blogsRef);
-
+    const q = query(blogsRef);
     const querySnapshot = await getDocs(q);
-    const blogs = querySnapshot.docs.map(doc => ({
+
+    const blogs = querySnapshot.docs.map((doc) => ({
       id: doc.id,
       ...doc.data(),
     }));
 
-    this.setState({ blogs });
+    const categories = ["all", ...new Set(blogs.map((blog) => blog.category))];
+
+    console.log("Fetched blogs: ", blogs);
+    console.log("Fetched categories: ", categories);
+
+    this.setState({ blogs, originalBlogs: blogs, categories }, this.sortBlogs);
   };
 
   handleSort = (sortBy) => {
@@ -51,6 +55,7 @@ class Blogs extends Component {
   };
 
   handleFilter = (filterBy) => {
+    console.log("Filter by: ", filterBy);
     this.setState({ filterBy, currentPage: 1 }, this.sortBlogs);
   };
 
@@ -59,8 +64,8 @@ class Blogs extends Component {
   };
 
   sortBlogs = () => {
-    const { sortBy, sortOrder, filterBy, blogs } = this.state;
-    let filteredBlogs = blogs;
+    const { sortBy, sortOrder, filterBy, originalBlogs } = this.state;
+    let filteredBlogs = [...originalBlogs];
 
     if (filterBy !== "all") {
       filteredBlogs = filteredBlogs.filter((blog) => blog.category === filterBy);
@@ -68,28 +73,33 @@ class Blogs extends Component {
 
     filteredBlogs.sort((a, b) => {
       if (sortBy === "title") {
-        return sortOrder === "asc" ? a.title.localeCompare(b.title) : b.title.localeCompare(a.title);
+        return sortOrder === "asc"
+          ? a.title.localeCompare(b.title)
+          : b.title.localeCompare(a.title);
       } else if (sortBy === "date") {
-        return sortOrder === "asc" ? new Date(a.createdAt) - new Date(b.createdAt) : new Date(b.createdAt) - new Date(a.createdAt);
+        return sortOrder === "asc"
+          ? new Date(a.createdAt) - new Date(b.createdAt)
+          : new Date(b.createdAt) - new Date(a.createdAt);
       } else if (sortBy === "popularity") {
         return sortOrder === "asc" ? a.popularity - b.popularity : b.popularity - a.popularity;
       }
       return 0;
     });
 
+    console.log("Filtered and sorted blogs: ", filteredBlogs);
+
     this.setState({ blogs: filteredBlogs });
   };
 
   truncateText = (text, letterLimit) => {
     if (text.length > letterLimit) {
-      return text.slice(0, letterLimit);
+      return text.slice(0, letterLimit) + "...";
     }
     return text;
   };
 
   render() {
-    const { sortOrder, currentPage, blogsPerPage, blogs } = this.state;
-    const categories = [...new Set(blogs.map((blog) => blog.category))];
+    const { sortOrder, currentPage, blogsPerPage, blogs, categories } = this.state;
 
     const indexOfLastBlog = currentPage * blogsPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
@@ -113,7 +123,7 @@ class Blogs extends Component {
                   </p>
                 </div>
               </div>
-             
+
               <div className="col-12">
                 <div className="d-flex flex-column flex-md-row justify-content-between mb-4">
                   <Link to="/add-blog" className="btn btn-outline-light mb-3 mb-md-0 px-5">
@@ -153,9 +163,6 @@ class Blogs extends Component {
                         Filter by
                       </button>
                       <div className="dropdown-menu" aria-labelledby="filterDropdown">
-                        <button className="dropdown-item" onClick={() => this.handleFilter("all")}>
-                          All
-                        </button>
                         {categories.map((category) => (
                           <button className="dropdown-item" key={category} onClick={() => this.handleFilter(category)}>
                             {category}
@@ -166,8 +173,6 @@ class Blogs extends Component {
                   </div>
                 </div>
               </div>
-           
-
 
               {currentBlogs.map((blog) => (
                 <div className="col-lg-4 col-md-6 col-sm-6 mb-4" key={blog.id}>

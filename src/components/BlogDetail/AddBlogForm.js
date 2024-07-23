@@ -4,6 +4,9 @@ import { Link, useHistory } from 'react-router-dom';
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { firestore } from '../../firebaseConfig';
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css'; // Import the Quill styles
+import './AddBlogForm.scss'
 
 const AddBlog = () => {
   const { isAuthenticated } = useAuth();
@@ -46,7 +49,7 @@ const AddBlog = () => {
           try {
             await addDoc(collection(firestore, 'blogs'), {
               title: title.trim(),
-              description: description.trim(),
+              description: description.trim(), // Storing HTML content from Quill
               category: category.trim(),
               src: downloadURL,
               createdAt: serverTimestamp(),
@@ -95,12 +98,13 @@ const AddBlog = () => {
         </div>
         <div className="form-group">
           <label htmlFor="description">Description:</label>
-          <textarea
+          <ReactQuill
             id="description"
             className="form-control"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
+            onChange={(value) => setDescription(value)}
             required
+            style={{ height: '300px' }}
           />
         </div>
         <div className="form-group">
@@ -144,6 +148,21 @@ const AddBlog = () => {
           Add Blog
         </button>
       </form>
+      <div className="preview mt-5 text-white">
+        <h2>Preview</h2>
+        <h3>{title}</h3>
+        <div dangerouslySetInnerHTML={{ __html: description }}></div>
+        <p>Category: {category}</p>
+        {image && (
+          <div>
+            <img
+              src={URL.createObjectURL(image)}
+              alt="Preview"
+              style={{ maxWidth: '100%' }}
+            />
+          </div>
+        )}
+      </div>
     </div>
   );
 };
