@@ -7,7 +7,7 @@ class Portfolio extends Component {
   render() {
     return (
       <>
-        <section className="portfolio">
+        <section className="portfolio section-title">
           <div className="container text-center">
             <div className="row align-items-center">
               <div className="col-12">
