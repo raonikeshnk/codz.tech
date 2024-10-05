@@ -13,7 +13,7 @@ const LetsWorkTogether = () => {
                 Scaling-up your business is our mission!
               </p>
               <Link to="/contact">
-                <button className="btn text-white">Contact</button>
+                <button className="btn text-white border-2">Contact</button>
               </Link>
             </div>
           </div>

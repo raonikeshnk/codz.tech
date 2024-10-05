@@ -16,6 +16,10 @@ $thirdFont: "Courgette", cursive;
 /* sizes */
 $titleFontSize: 65px;
 
+* {
+  cursor: none;
+}
+
 .App {
   text-align: center;
   background: #171616;
@@ -45,6 +49,36 @@ $titleFontSize: 65px;
 .section-title {
   padding-top: 10%;
 }
+
+/* --------------------- Custom Cursor --------------------- */
+
+.custom-cursor {
+  cursor: none; 
+  position: fixed;
+  pointer-events: none; /* Prevents interference with mouse events */
+  z-index: 9999; /* Ensure the cursor is on top of other content */
+}
+
+.custom-cursor .circle {
+  position: absolute;
+  border-radius: 50%;
+  border: 2px solid rgb(255, 255, 255); /* Border color */
+  background: transparent; /* Transparent background */
+}
+
+.custom-cursor .circle.small {
+  width: 20px; /* Size of the small circle */
+  height: 20px;
+  background: #fff;
+}
+
+.custom-cursor .circle.large {
+  width: 30px; /* Size of the large circle */
+  height: 30px;
+  border-color: rgb(0, 255, 34); /* Border color of the large circle */
+}
+
+
 
 /* --------------------- Banner --------------------- */
 
@@ -168,7 +202,7 @@ $titleFontSize: 65px;
     border-radius: 7px 7px 7px 7px;
     -moz-border-radius: 7px 7px 7px 7px;
     -webkit-border-radius: 7px 7px 7px 7px;
-    border: 0px solid #000000;
+    // border: 2px solid #00ff00;
     height: 50px;
     width: 50%;
     background: $primaryColor;
@@ -183,6 +217,9 @@ $titleFontSize: 65px;
     a {
       color: #ffff;
     }
+  }
+  button:hover{
+    border: 3px solid #000000;
   }
 }
 /*---------------------- blogs page --------------------------*/
