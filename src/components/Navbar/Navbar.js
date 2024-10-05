@@ -21,9 +21,9 @@ const Navbar = () => {
   }, []);
 
   return (
-    <header className="header-transparent">
+    <header className="header-transparent mt-4">
       <nav className="navbar navbar-expand-lg text-center">
-        <div className="container">
+        <div className="container title-font">
           <Link to="/" className="navbar-brand">
             CodzTech
           </Link>
@@ -52,7 +52,7 @@ const Navbar = () => {
                 </li>
               ))}
             </ul>
-            <div className="mt-lg-4 mx-lg-5">
+            <div className=" mx-lg-5">
               <a href="https://linktr.ee/codz.tech" target="_blank" rel="noopener noreferrer">
                 <img src="https://1000logos.net/wp-content/uploads/2022/07/linktree-logo.png" alt="Linktree" style={{ height: '50px' }} />
               </a>

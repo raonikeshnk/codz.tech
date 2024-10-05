@@ -6,7 +6,7 @@ import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/
 import { firestore } from '../../firebaseConfig';
 import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css'; // Import the Quill styles
-import './AddBlogForm.scss'
+import './AddBlogForm.scss';
 
 const AddBlog = () => {
   const { isAuthenticated } = useAuth();
@@ -81,6 +81,29 @@ const AddBlog = () => {
     );
   }
 
+  // Define custom toolbar options
+  const modules = {
+    toolbar: [
+      [{ 'header': '1'}, {'header': '2'}, { 'font': [] }],
+      [{size: []}],
+      ['bold', 'italic', 'underline', 'strike', 'blockquote'],
+      [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+      ['link', 'image'],
+      [{ 'color': [] }, { 'background': [] }], // Add color and background color
+      [{ 'align': [] }],
+      ['clean'], // Remove formatting button
+    ]
+  };
+
+  const formats = [
+    'header', 'font', 'size',
+    'bold', 'italic', 'underline', 'strike', 'blockquote',
+    'list', 'bullet',
+    'link', 'image',
+    'color', 'background',
+    'align',
+  ];
+
   return (
     <div className="container text-white" style={{ paddingTop: '100px' }}>
       <h2 style={{ color: 'red' }}>Add New Blog</h2>
@@ -103,8 +126,10 @@ const AddBlog = () => {
             className="form-control"
             value={description}
             onChange={(value) => setDescription(value)}
+            modules={modules} // Add custom modules
+            formats={formats} // Add custom formats
             required
-            style={{ height: '300px' }}
+            style={{ height: '400px', paddingBottom:'55px' }}
           />
         </div>
         <div className="form-group">
@@ -148,8 +173,9 @@ const AddBlog = () => {
           Add Blog
         </button>
       </form>
+      <hr/>
       <div className="preview mt-5 text-white">
-        <h2>Preview</h2>
+        <h2>Blog Preview</h2>
         <h3>{title}</h3>
         <div dangerouslySetInnerHTML={{ __html: description }}></div>
         <p>Category: {category}</p>

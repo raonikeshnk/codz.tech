@@ -36,7 +36,7 @@ const Contact = () => {
 
 
   return (
-    <div className="contact section-title">
+    <div className="contact section section-title">
       <ToastContainer /> 
       <div className="container text-white">
         <div className="row align-items-center">

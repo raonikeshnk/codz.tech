@@ -47,5 +47,3 @@ const CustomCursor = () => {
 };
 
 export default CustomCursor;
-
-// Update 
