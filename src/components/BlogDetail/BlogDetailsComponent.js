@@ -116,7 +116,6 @@ const BlogDetail = () => {
               //   <img src={b.src} alt={b.title} className="img-fluid" />
               //   <p>{b.title.slice(0,30)}...</p>
               //   {/* <p>{b.description.slice(0, 100)}...</p> */}
-            
               // </div>
               // </Link>
               <div key={b.id} className="carousel-item-wrapper">
@@ -139,3 +138,5 @@ const BlogDetail = () => {
 };
 
 export default BlogDetail;
+
+// Update

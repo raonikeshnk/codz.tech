@@ -194,3 +194,5 @@ const AddBlog = () => {
 };
 
 export default AddBlog;
+
+// Update  the `AddBlog` component to use the `useState` hook to store the image file and the
