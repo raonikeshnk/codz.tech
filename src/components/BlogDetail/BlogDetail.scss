@@ -45,6 +45,32 @@
         margin-right: auto;
     }
 
+    .image-container {
+        width: 100%; // or a fixed width like 400px
+        height: 300px; // Set the desired fixed height
+        overflow: hidden; // Hide overflow to prevent the image from exceeding the container
+        position: relative; // Position relative for absolute positioning of the image
+    }
+
+    .responsive-image {
+        width: 100%; // Scale image to fit the width of the container
+        height: auto; // Maintain aspect ratio
+        position: absolute; // Position the image absolutely
+        top: 50%; // Center the image vertically
+        left: 50%; // Center the image horizontally
+        transform: translate(-50%, -50%); // Adjust the image position to be centered
+    }
+
+    .blog-short-description img {
+        width: 100%; // Make the image responsive to the width of the container
+        height: auto; // Maintain aspect ratio
+        max-width: 500px; // Set a maximum width for the image
+        max-height: 600px; // Set a maximum height for the image
+        display: block; // Ensure that the image behaves like a block element
+        margin: 0 auto; // Center the image
+    }
+
+
     .blog-description {
         font-size: 1.2rem;
         line-height: 1.6;
@@ -156,6 +182,7 @@
             border: none;
 
         }
+
         .btn-primary:active {
             outline: none;
         }

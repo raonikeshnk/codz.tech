@@ -281,6 +281,29 @@ $titleFontSize: 65px;
   box-shadow: none
 }
 
+.blog-image {
+  width: 100%; /* Make the image take full width of the card */
+  height: 240px; /* Set a fixed height */
+  object-fit: cover; /* Cover the area while maintaining aspect ratio */
+}
+
+.blog-card-body {
+  height: 180px; /* Set a fixed height */
+  overflow: hidden; /* Hide any overflow text */
+}
+
+.card-title {
+  font-size: 1.6rem;
+  // height: 40px; /* Set a fixed height for the title */
+  overflow: hidden; /* Hide any overflow text */
+  text-overflow: ellipsis; /* Add ellipsis for overflow text */
+  white-space: nowrap; /* Prevent text from wrapping */
+}
+
+.card-text {
+  font-size: 0.8rem;
+}
+
 
 /*---------------------- footer area --------------------------*/
 footer {

@@ -84,14 +84,16 @@ const BlogDetail = () => {
         <div className="col-12 text-center">
           <h1 className="title-font">{blog.title}</h1>
           <div className="d-flex justify-content-center my-4">
-          <p className="me-2">Published: <span className="bg-warning p-1 rounded-1">{new Date(blog.createdAt.seconds * 1000).toLocaleDateString()}</span></p>
-          <p className="">Category: <span className="bg-danger p-1 rounded-1">{blog.category}</span></p>
+            <p className="me-2">Published: <span className="bg-warning p-1 rounded-1">{new Date(blog.createdAt.seconds * 1000).toLocaleDateString()}</span></p>
+            <p >Category: <span className="bg-danger p-1 rounded-1">{blog.category}</span></p>
           </div>
         </div>
       </div>
       <div className="row">
         <div className="col-12 col-md-8 offset-md-2">
-          <img src={blog.src} alt={blog.title} className="img-fluid w-50" />
+          <div className="image-container">
+            <img src={blog.src || "https://via.placeholder.com/250"} alt={blog.title} className="img-fluid responsive-image" />
+          </div>
         </div>
       </div>
       <div className="row mt-5">
@@ -119,18 +121,18 @@ const BlogDetail = () => {
               // </div>
               // </Link>
               <div key={b.id} className="carousel-item-wrapper">
-              <Link to={`/blog/${b.id}`}>
-                <div className="carousel-item mb-5">
-                  <img src={b.src} alt={b.title} className="img-fluid" />
-                  <div className="carousel-title-overlay">
-                    <h5>{b.title}</h5>
+                <Link to={`/blog/${b.id}`}>
+                  <div className="carousel-item mb-5">
+                    <img src={b.src || "https://via.placeholder.com/250"} alt={b.title} className="img-fluid" />
+                    <div className="carousel-title-overlay">
+                      <p>{b.title}</p>
+                    </div>
                   </div>
-                </div>
-              </Link>
-            </div>
+                </Link>
+              </div>
             ))}
           </Carousel>
-        
+
         </div>
       </div>
     </div>

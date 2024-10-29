@@ -98,12 +98,37 @@ class Blogs extends Component {
     return text;
   };
 
+  truncateHtml = (html, limit) => {
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
+
+    let text = tempDiv.innerText || tempDiv.textContent;
+
+    if (text.length <= limit) {
+      return html; // Return the original HTML if it's within the limit
+    }
+
+    // Truncate the text and preserve HTML tags
+    let truncatedText = text.slice(0, limit);
+    const truncatedHtml = tempDiv.innerHTML.slice(0, limit);
+
+    // Find the last complete tag
+    const lastTagIndex = truncatedHtml.lastIndexOf("<");
+    if (lastTagIndex > -1) {
+      return truncatedHtml.slice(0, lastTagIndex) + "..."; // Add ellipsis if truncated
+    }
+
+    return truncatedHtml + "..."; // Add ellipsis if truncated
+  };
+
   render() {
     const { sortOrder, currentPage, blogsPerPage, blogs, categories } = this.state;
 
     const indexOfLastBlog = currentPage * blogsPerPage;
     const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
     const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
+
+    console.log('all blogs data:', currentBlogs)
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(blogs.length / blogsPerPage); i++) {
@@ -174,23 +199,30 @@ class Blogs extends Component {
                 </div>
               </div>
 
-              {currentBlogs.map((blog) => (
-                <div className="col-lg-4 col-md-6 col-sm-6 mb-4" key={blog.id}>
-                  <div className="card bg-dark border-light">
-                    <Link to={`/blog/${blog.id}`} className="text-decoration-none text-white">
-                      <img src={blog.src} alt={blog.title} className="card-img-top" />
-                      <div className="card-body">
-                        <h2 className="card-title">{this.truncateText(blog.title, 30)}</h2>
-                        <p className="card-text">{this.truncateText(blog.description, 60)}</p>
-                        <span className="badge badge-secondary">Category: {blog.category}</span>
-                        <p className="card-text">
-                          <small className="text-muted">Published on: {new Date(blog.createdAt).toLocaleDateString()}</small>
-                        </p>
-                      </div>
-                    </Link>
+              {blogs.length > 0 ? (
+                currentBlogs.map((blog) => (
+                  <div className="col-lg-4 col-md-6 col-sm-6 mb-4" key={blog.id}>
+                    <div className="card bg-dark border-light">
+                      <Link to={`/blog/${blog.id}`} className="text-decoration-none text-white">
+                        <img src={blog.src || "https://via.placeholder.com/250"} alt={blog.title} className="card-img-top blog-image" />
+                        <div className="card-body blog-card-body">
+                          <h2 className="card-title">{this.truncateText(blog.title, 30)}</h2>
+                          <div className="card-text" dangerouslySetInnerHTML={{ __html: this.truncateHtml(blog.description, 80) }} />
+                          <span className="badge badge-secondary">Category: {blog.category}</span>
+                          <p className="card-text">
+                            <small className="">Published on: {new Date(blog.createdAt.seconds * 1000).toLocaleDateString()}</small>
+                          </p>
+                        </div>
+                      </Link>
+                    </div>
                   </div>
+                ))
+              ) : (
+                <div className="col-12 text-center text-white">
+                  <h3 className="text-secondary">No blogs available at the moment.</h3>
+                  <p>Please check back later.</p>
                 </div>
-              ))}
+              )}
               <div className="col-12 mt-4">
                 <nav aria-label="Blog Pagination">
                   <ul className="pagination pagination-dark justify-content-center text-white">
