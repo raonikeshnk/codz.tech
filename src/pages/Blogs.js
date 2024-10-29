@@ -109,7 +109,7 @@ class Blogs extends Component {
     }
 
     // Truncate the text and preserve HTML tags
-    let truncatedText = text.slice(0, limit);
+    // let truncatedText = text.slice(0, limit);
     const truncatedHtml = tempDiv.innerHTML.slice(0, limit);
 
     // Find the last complete tag
